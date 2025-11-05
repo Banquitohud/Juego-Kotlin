@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcf3yn0dhbixs"]
+
+[ext_resource type="Script" path="res://scenes/slime.gd" id="1_dh8pg"]
+[ext_resource type="Texture2D" uid="uid://bwoec51f6mei0" path="res://assets/sprites/slime_purple.png" id="1_pmbgc"]
+[ext_resource type="PackedScene" uid="uid://c2tgd0lwkunxw" path="res://scenes/kill_zone.tscn" id="2_4exyj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opies"]
+atlas = ExtResource("1_pmbgc")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pj378"]
+atlas = ExtResource("1_pmbgc")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynubg"]
+atlas = ExtResource("1_pmbgc")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8omc"]
+atlas = ExtResource("1_pmbgc")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vblo4"]
+atlas = ExtResource("1_pmbgc")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3h17o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opies")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pj378")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ynubg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8omc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vblo4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvsy1"]
+size = Vector2(10, 15)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_dh8pg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3h17o")
+autoplay = "default"
+frame = 3
+frame_progress = 0.611804
+flip_h = true
+
+[node name="KillZone" parent="." instance=ExtResource("2_4exyj")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+light_mask = 4
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_jvsy1")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 4)
+target_position = Vector2(19, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 4)
+target_position = Vector2(-18, 0)
